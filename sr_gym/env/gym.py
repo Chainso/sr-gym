@@ -23,7 +23,7 @@ class SRGym(Env):
         """
         raise NotImplementedError
 
-    def step(self, action: Tuple[Any, ...]) -> List[Any, Any, bool, Dict]:
+    def step(self, action: Tuple[Any, ...]) -> Tuple[List, float, bool, Dict]:
         """
         Takes one step in the SpeedRunners game, executing the action.
 
