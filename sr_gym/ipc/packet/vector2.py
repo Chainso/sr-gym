@@ -3,8 +3,8 @@ from dataclasses import dataclass
 
 from dataclasses_json import dataclass_json
 
-@dataclass
 @dataclass_json
+@dataclass
 class Vector2:
     """
     A 2 dimensional vector.

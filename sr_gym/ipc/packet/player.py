@@ -4,8 +4,8 @@ from dataclasses_json import dataclass_json
 
 from .entity import Entity
 
-@dataclass
 @dataclass_json
+@dataclass
 class Player:
     """
     A game player.

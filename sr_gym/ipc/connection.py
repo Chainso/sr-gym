@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import win32file
+import win32pipe
+
 from sr_gym.ipc.packet import Game
 
 class Connection:
@@ -15,6 +18,7 @@ class Connection:
             max_message_size: The maximum message size to read from the pipe.
         """
         self.pipe = pipe
+        self.max_message_size = max_message_size
 
     @staticmethod
     def create_named_pipe_connection(
@@ -36,7 +40,8 @@ class Connection:
             0, None, win32file.OPEN_EXISTING, 0, None
         )
         pipe_state_set = win32pipe.SetNamedPipeHandleState(
-            pipe, win32pipe.PIPE_READMODE_MESSAGE, None, None
+            pipe, win32pipe.PIPE_READMODE_MESSAGE | win32pipe.PIPE_WAIT, None,
+            None
         )
 
         if pipe_state_set == 0:
@@ -52,5 +57,6 @@ class Connection:
         Returns:
             The packet read as a game dataclass.
         """
-        message = win32file.ReadFile(self.pipe, self.max_message_size_size)
+        _, message = win32file.ReadFile(self.pipe, self.max_message_size)
+        print(message)
         return Game.from_json(message)
