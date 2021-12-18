@@ -60,3 +60,9 @@ class Connection:
         _, message = win32file.ReadFile(self.pipe, self.max_message_size)
         print(message)
         return Game.from_json(message)
+
+    def close(self) -> None:
+        """
+        Closes the connection.
+        """
+        self.pipe.close()
