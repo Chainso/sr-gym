@@ -5,7 +5,11 @@ if __name__ == "__main__":
     max_message_size = 1024
 
     conn = Connection.create_named_pipe_connection(pipe_name, max_message_size)
-    packet = conn.read_packet()
-    print(packet)
+
+    counts = 10
+
+    for _ in range(counts):
+        packet = conn.read_packet()
+        print(packet)
 
     conn.close()
