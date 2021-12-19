@@ -23,4 +23,4 @@ class Player:
     on_wall: bool
     on_ground: bool
     item: int
-    last_move_direction: int
+    last_move_direction: float
