@@ -61,6 +61,15 @@ class Connection:
         print(message)
         return Game.from_json(message)
 
+    def send_packet(self, message: str) -> None:
+        """
+        Sends a packet through the pipe.
+
+        Args:
+            message: The message to send through the pipe.
+        """
+        win32file.WriteFile(self.pipe, str.encode(message))
+
     def close(self) -> None:
         """
         Closes the connection.

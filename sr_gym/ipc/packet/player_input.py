@@ -12,6 +12,7 @@ class PlayerInput:
     right: bool
     jump: bool
     grapple: bool
+    weapon: bool
     item: bool
     taunt: bool
     swap_weapon: bool
