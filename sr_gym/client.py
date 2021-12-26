@@ -13,7 +13,7 @@ if __name__ == "__main__":
         left=True,
         right=False,
         jump=False,
-        grapple=True,
+        grapple=False,
         weapon=False,
         item=False,
         taunt=False,
@@ -22,7 +22,7 @@ if __name__ == "__main__":
         boost=False
     )
 
-    counts = 10
+    counts = 1000
 
     for _ in range(counts):
         packet = conn.read_packet()
@@ -34,7 +34,5 @@ if __name__ == "__main__":
         inputs.left = not inputs.left
         inputs.right = not inputs.right
         inputs.jump = not inputs.jump
-
-        sleep(1)
 
     conn.close()
