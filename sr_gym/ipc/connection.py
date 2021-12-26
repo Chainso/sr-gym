@@ -3,7 +3,7 @@ from __future__ import annotations
 import win32file
 import win32pipe
 
-from sr_gym.ipc.packet import Game
+from sr_gym.ipc.packet import GameState
 
 class Connection:
     """
@@ -50,7 +50,7 @@ class Connection:
 
         return Connection(pipe, max_message_size)
 
-    def read_packet(self) -> Game:
+    def read_packet(self) -> GameState:
         """
         Reads a single packet from the pipe.
 
@@ -59,7 +59,7 @@ class Connection:
         """
         _, message = win32file.ReadFile(self.pipe, self.max_message_size)
         print(message)
-        return Game.from_json(message)
+        return GameState.from_json(message)
 
     def send_packet(self, message: str) -> None:
         """

@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import ClassVar
 
 from dataclasses_json import dataclass_json
 
@@ -8,6 +9,8 @@ class PlayerInput:
     """
     The inputs for a game player.
     """
+    num_inputs: ClassVar[int] = 10
+
     left: bool
     right: bool
     jump: bool

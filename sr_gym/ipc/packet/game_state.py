@@ -8,7 +8,7 @@ from .player import Player
 
 @dataclass_json
 @dataclass
-class Game:
+class GameState:
     """
     All data about the game.
     """
