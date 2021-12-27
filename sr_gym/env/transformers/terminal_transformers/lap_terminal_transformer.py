@@ -4,14 +4,8 @@ from sr_gym.env.transformers.terminal_transformers import TerminalTransformer
 
 class LapTerminalTransformer(TerminalTransformer):
     """
-    Calculates a reward based on the velocity of the player.
+    Calculates if a new state is terminal based on the current lap.
     """
-    def __init__(self):
-        """
-        Creates the terminal transformer.
-        """
-        self.lap_time = 0
-
     def reset(self, initial_state: GameState) -> None:
         """
         Resets the terminal transformer using the initial state.
@@ -41,8 +35,5 @@ class LapTerminalTransformer(TerminalTransformer):
         """
         # Check if the current lap time is less than the current one, indicates
         # that this is a new lap
-        new_lap_time = next_state.info.lap_time
-        terminal = new_lap_time < self.lap_time
-        self.lap_time = new_lap_time
+        return state.info.lap_time > next_state.info.lap_time
 
-        return terminal

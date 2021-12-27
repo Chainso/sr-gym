@@ -1,8 +1,9 @@
-from gym.spaces import MultiBinary, Tuple
+from gym.spaces import MultiBinary
 
 from sr_gym.ipc.packet import GameState
 from sr_gym.ipc.packet import PlayerInput
 from sr_gym.env.transformers.action_transformers import ActionTransformer
+from sr_gym.env.spaces import TupleShaped
 
 class TupleActionTransformer(ActionTransformer):
     """
@@ -15,7 +16,7 @@ class TupleActionTransformer(ActionTransformer):
         Args:
             num_players: The number of players in the environment.
         """
-        self._action_space: Tuple = Tuple(tuple(
+        self._action_space: TupleShaped = TupleShaped(tuple(
             MultiBinary(PlayerInput.num_inputs) for _ in range(num_players)
         ))
 
@@ -44,7 +45,7 @@ class TupleActionTransformer(ActionTransformer):
         """
         return PlayerInput(*action)
 
-    def action_space(self) -> Tuple:
+    def action_space(self) -> TupleShaped:
         """
         The action space of the pre-transformed input action.
 

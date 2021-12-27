@@ -1,7 +1,11 @@
+import numpy as np
+
 from sr_gym.ipc import Connection
 from sr_gym.ipc.packet import PlayerInput
 from sr_gym.env import SRGym
-from sr_gym.env.transformers import TupleActionTransformer
+from sr_gym.env.transformers import (
+    TupleStateTransformer, TupleActionTransformer
+)
 
 if __name__ == "__main__":
     pipe_name = "\\\\.\\pipe\\SpeedRunners-dll"
@@ -10,10 +14,23 @@ if __name__ == "__main__":
     #conn = Connection.create_named_pipe_connection(pipe_name, max_message_size)
     conn = None
 
-    env = SRGym(conn, action_transformer=TupleActionTransformer())
+    env = SRGym(
+        conn,
+        state_transformer=TupleStateTransformer(),
+        action_transformer=TupleActionTransformer()
+    )
     print(env.observation_space)
     print(env.action_space)
+    print()
 
+    print(env.observation_space.shape, np.prod(env.observation_space.shape))
+    print(env.action_space.shape, np.prod(env.action_space.shape))
+
+    num_obs = np.sum(np.prod(env.observation_space.shape, axis=-1))
+    num_acts = np.sum(np.prod(env.action_space.shape, axis=-1))
+
+    print(num_obs)
+    print(num_acts)
     """
     inputs = PlayerInput(
         left=True,

@@ -1,8 +1,9 @@
 import numpy as np
-from gym.spaces import Box, Dict, Discrete, MultiBinary, Tuple
+from gym.spaces import Box, Dict, Discrete, MultiBinary
 
 from sr_gym.ipc.packet import GameState
 from sr_gym.env.transformers.state_transformers import StateTransformer
+from sr_gym.env.spaces import TupleShaped
 
 class SimpleStateTransformer(StateTransformer):
     """
@@ -19,7 +20,7 @@ class SimpleStateTransformer(StateTransformer):
             "info": Dict({
                 "lap_time": Box(low=0, high=np.inf, shape=(1,))
             }),
-            "players": Tuple(tuple(
+            "players": TupleShaped(tuple(
                 Dict({
                     "entity": Dict({
                         "position": Box(low=np.NINF, high=np.inf, shape=(2,)),
