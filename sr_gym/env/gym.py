@@ -71,7 +71,7 @@ class SRGym(Env):
         Returns:
             A tuple of (next state, reward, terminal, info).
         """
-        parsed_act = self.action_transformer(action)
+        parsed_act = self.action_transformer.transform_action(action)
         self.connection.send_packet(parsed_act.to_json())
         
         next_state = self.connection.read_packet()

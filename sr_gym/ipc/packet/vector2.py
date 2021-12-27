@@ -1,7 +1,7 @@
 import math
 from dataclasses import dataclass
 
-from dataclasses_json import dataclass_json
+from sr_gym.ipc.packet.dataclass import dataclass_json
 
 @dataclass_json
 @dataclass

@@ -1,3 +1,4 @@
+import numpy as np
 from gym.spaces import MultiBinary
 
 from sr_gym.ipc.packet import GameState
@@ -43,7 +44,7 @@ class TupleActionTransformer(ActionTransformer):
         Returns:
             The player input object action.
         """
-        return PlayerInput(*action)
+        return PlayerInput(*np.array(action).astype(bool))
 
     def action_space(self) -> TupleShaped:
         """

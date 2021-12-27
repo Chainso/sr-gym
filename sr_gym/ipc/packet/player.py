@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from dataclasses_json import dataclass_json
+from sr_gym.ipc.packet.dataclass import dataclass_json
 
 from sr_gym.ipc.packet.entity import Entity
 from sr_gym.ipc.packet.player_input import PlayerInput

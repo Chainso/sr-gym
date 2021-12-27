@@ -45,7 +45,7 @@ class Connection:
         )
 
         if pipe_state_set == 0:
-            # Failed to set pipe mode
+            # Failed to set pipe mode, TODO: error handling
             pass
 
         return Connection(pipe, max_message_size)
@@ -58,17 +58,22 @@ class Connection:
             The packet read as a game dataclass.
         """
         _, message = win32file.ReadFile(self.pipe, self.max_message_size)
-        print(message)
+
+        if message is None:
+            # Problem reading, TODO: error handling
+            pass
+
+        print("Read:", message)
         return GameState.from_json(message)
 
-    def send_packet(self, message: str) -> None:
+    def send_packet(self, message: bytes) -> None:
         """
         Sends a packet through the pipe.
 
         Args:
             message: The message to send through the pipe.
         """
-        win32file.WriteFile(self.pipe, str.encode(message))
+        win32file.WriteFile(self.pipe, message)
 
     def close(self) -> None:
         """

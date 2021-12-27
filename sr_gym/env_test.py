@@ -1,7 +1,10 @@
+from time import time
+
+import orjson
 import numpy as np
 
 from sr_gym.ipc import Connection
-from sr_gym.ipc.packet import PlayerInput
+from sr_gym.ipc.packet import GameState, PlayerInput
 from sr_gym.env import SRGym
 from sr_gym.env.transformers import (
     TupleStateTransformer, TupleActionTransformer
@@ -11,8 +14,8 @@ if __name__ == "__main__":
     pipe_name = "\\\\.\\pipe\\SpeedRunners-dll"
     max_message_size = 1024
 
-    #conn = Connection.create_named_pipe_connection(pipe_name, max_message_size)
-    conn = None
+    conn = Connection.create_named_pipe_connection(pipe_name, max_message_size)
+    #conn = None
 
     env = SRGym(
         conn,
@@ -31,32 +34,49 @@ if __name__ == "__main__":
 
     print(num_obs)
     print(num_acts)
-    """
-    inputs = PlayerInput(
-        left=True,
-        right=False,
-        jump=False,
-        grapple=False,
-        weapon=False,
-        item=False,
-        taunt=False,
-        swap_weapon=False,
-        slide=False,
-        boost=False
-    )
 
-    counts = 1000
+    print(env.action_space.sample())
+
+    length = 30
+    acts = 0
+
+    
+    start = time()
+
+    print("Reset to packet:", env.reset())
+    while time() - start < length:
+        action = env.action_space.sample()
+        action = np.hstack(action)
+        print(action)
+        # Weapon
+        action[4] = 0
+
+        # Taunt
+        action[6] = 0
+
+        # Swap weapon
+        action[7] = 0
+
+        acts += 1
+        env.step(action)
+
+    acts_per_sec = acts / length
+
+    print("APS:", acts_per_sec)
+
+    """
+    counts = 1
 
     for _ in range(counts):
         packet = conn.read_packet()
         print(packet)
 
-        print("Sending: " + inputs.to_json())
         conn.send_packet(inputs.to_json())
+
+        print("Sending: " + inputs.to_json().decode("utf-8"))
 
         inputs.left = not inputs.left
         inputs.right = not inputs.right
         inputs.jump = not inputs.jump
-
-    #conn.close()
     """
+    conn.close()

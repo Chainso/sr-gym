@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import List
 
-from dataclasses_json import dataclass_json
+from sr_gym.ipc.packet.dataclass import dataclass_json
 
 from .game_info import GameInfo
 from .player import Player
