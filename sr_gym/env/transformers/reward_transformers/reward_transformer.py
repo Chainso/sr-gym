@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 
-from sr_gym.ipc.packet import GameState
-from sr_gym.ipc.packet import PlayerInput
+from sr_gym.ipc.packet import GameState, PlayerInput
 
 class RewardTransformer(ABC):
     """

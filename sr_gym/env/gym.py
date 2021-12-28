@@ -31,6 +31,8 @@ class SRGym(Env):
             reward_transformer: The transformer to calculate rewards with.
             terminal_transformer: The transformer to determine terminals with.
         """
+        super().__init__()
+
         self.connection = connection
         self.state_transformer = state_transformer
         self.action_transformer = action_transformer
@@ -71,6 +73,8 @@ class SRGym(Env):
         Returns:
             A tuple of (next state, reward, terminal, info).
         """
+        info = {}
+
         parsed_act = self.action_transformer.transform_action(action)
         self.connection.send_packet(parsed_act.to_json())
         
@@ -80,7 +84,7 @@ class SRGym(Env):
         )
 
         terminal = self.terminal_transformer.transform_terminal(
-            self.state, parsed_act, next_state
+            self.state, parsed_act, next_state, info
         )
 
         reward = self.reward_transformer.transform_reward(
@@ -88,7 +92,6 @@ class SRGym(Env):
         )
 
         self.state = next_state
-        info = {}
 
         return transformed_next_state, reward, terminal, info
 

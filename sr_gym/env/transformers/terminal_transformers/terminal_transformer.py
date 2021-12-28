@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
+from typing import Any, Dict
 
-from sr_gym.ipc.packet import GameState
-from sr_gym.ipc.packet import PlayerInput
+from sr_gym.ipc.packet import GameState, PlayerInput
 
 class TerminalTransformer(ABC):
     """
@@ -22,7 +22,8 @@ class TerminalTransformer(ABC):
             self,
             state: GameState,
             action: PlayerInput,
-            next_state: GameState
+            next_state: GameState,
+            info: Dict[str, Any]
         ) -> bool:
         """
         Transforms a single terminal.
@@ -31,6 +32,8 @@ class TerminalTransformer(ABC):
             state: The state before the action was taken.
             action: The action that was taken.
             next_state: The state after the action was taken.
+            info: A dictionary of additional information of the environment,
+                and to add more information to.
         
         Returns:
             True if the this state transition has been determined has resulted

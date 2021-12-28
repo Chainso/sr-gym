@@ -3,8 +3,7 @@ from typing import Any
 
 from gym.spaces import Space
 
-from sr_gym.ipc.packet import GameState
-from sr_gym.ipc.packet import PlayerInput
+from sr_gym.ipc.packet import GameState, PlayerInput
 
 class ActionTransformer(ABC):
     """

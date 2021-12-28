@@ -1,7 +1,6 @@
 import numpy as np
 
-from sr_gym.ipc.packet import GameState
-from sr_gym.ipc.packet import PlayerInput
+from sr_gym.ipc.packet import GameState, PlayerInput
 from sr_gym.env.transformers.reward_transformers import RewardTransformer
 
 class VelocityRewardTransformer(RewardTransformer):

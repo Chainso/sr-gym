@@ -7,7 +7,8 @@ from sr_gym.ipc import Connection
 from sr_gym.ipc.packet import GameState, PlayerInput
 from sr_gym.env import SRGym
 from sr_gym.env.transformers import (
-    TupleStateTransformer, TupleActionTransformer
+    TupleStateTransformer, TupleActionTransformer, DiscreteActionTransformer,
+    VelocityRewardTransformer, LapTerminalTransformer
 )
 
 if __name__ == "__main__":
@@ -20,7 +21,9 @@ if __name__ == "__main__":
     env = SRGym(
         conn,
         state_transformer=TupleStateTransformer(),
-        action_transformer=TupleActionTransformer()
+        action_transformer=DiscreteActionTransformer(),
+        reward_transformer=VelocityRewardTransformer(),
+        terminal_transformer=LapTerminalTransformer()
     )
     print(env.observation_space)
     print(env.action_space)
@@ -30,7 +33,7 @@ if __name__ == "__main__":
     print(env.action_space.shape, np.prod(env.action_space.shape))
 
     num_obs = np.sum(np.prod(env.observation_space.shape, axis=-1))
-    num_acts = np.sum(np.prod(env.action_space.shape, axis=-1))
+    num_acts = np.sum(env.action_space.shape)
 
     print(num_obs)
     print(num_acts)
@@ -46,19 +49,11 @@ if __name__ == "__main__":
     print("Reset to packet:", env.reset())
     while time() - start < length:
         action = env.action_space.sample()
-        action = np.hstack(action)
         print(action)
-        # Weapon
-        action[4] = 0
-
-        # Taunt
-        action[6] = 0
-
-        # Swap weapon
-        action[7] = 0
 
         acts += 1
-        env.step(action)
+        ns, reward, terminal, info = env.step(action)
+        print(reward, terminal, info)
 
     acts_per_sec = acts / length
 

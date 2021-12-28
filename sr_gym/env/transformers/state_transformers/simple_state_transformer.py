@@ -16,6 +16,15 @@ class SimpleStateTransformer(StateTransformer):
         Args:
             num_players: The number of players in the environment.
         """
+        super().__init__()
+
+        if num_players <= 0:
+            raise ValueError(
+                "The number of players ({0}) must be greater than 0".format(
+                    num_players
+                )
+            )
+
         self._state_space: Dict = Dict({
             "info": Dict({
                 "lap_time": Box(low=0, high=np.inf, shape=(1,))

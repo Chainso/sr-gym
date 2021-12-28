@@ -1,25 +1,20 @@
 import numpy as np
 from gym.spaces import MultiBinary
 
-from sr_gym.ipc.packet import GameState
-from sr_gym.ipc.packet import PlayerInput
+from sr_gym.ipc.packet import GameState, PlayerInput
 from sr_gym.env.transformers.action_transformers import ActionTransformer
-from sr_gym.env.spaces import TupleShaped
 
 class TupleActionTransformer(ActionTransformer):
     """
-    The simplest action transformer, just returning the underlying action.
+    An action transformer taking the player inputs as a tuple of booleans.
     """
-    def __init__(self, num_players: int = 1):
+    def __init__(self):
         """
-        Creates the tuple action transformer for the number of players.
+        Creates the tuple action transformer.
+        """
+        super().__init__()
 
-        Args:
-            num_players: The number of players in the environment.
-        """
-        self._action_space: TupleShaped = TupleShaped(tuple(
-            MultiBinary(PlayerInput.num_inputs) for _ in range(num_players)
-        ))
+        self._action_space: MultiBinary = MultiBinary(PlayerInput.num_inputs)
 
     def reset(self, initial_state: GameState) -> None:
         """
@@ -46,7 +41,7 @@ class TupleActionTransformer(ActionTransformer):
         """
         return PlayerInput(*np.array(action).astype(bool))
 
-    def action_space(self) -> TupleShaped:
+    def action_space(self) -> MultiBinary:
         """
         The action space of the pre-transformed input action.
 
