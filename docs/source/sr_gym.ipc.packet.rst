@@ -1,6 +1,14 @@
 sr\_gym.ipc.packet package
 ==========================
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   sr_gym.ipc.packet.dataclass
+
 Submodules
 ----------
 

@@ -12,6 +12,14 @@ sr\_gym.env.transformers.action\_transformers.action\_transformer module
    :undoc-members:
    :show-inheritance:
 
+sr\_gym.env.transformers.action\_transformers.discrete\_action\_transformer module
+----------------------------------------------------------------------------------
+
+.. automodule:: sr_gym.env.transformers.action_transformers.discrete_action_transformer
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 sr\_gym.env.transformers.action\_transformers.simple\_action\_transformer module
 --------------------------------------------------------------------------------
 
