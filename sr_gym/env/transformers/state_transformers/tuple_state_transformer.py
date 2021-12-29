@@ -1,3 +1,5 @@
+from typing import Any, Tuple
+
 import numpy as np
 from gym.spaces import Box, MultiBinary
 from sr_gym.env.spaces.discrete_shaped import DiscreteShaped
@@ -8,7 +10,7 @@ from sr_gym.env.spaces import DiscreteShaped, TupleShaped
 
 class TupleStateTransformer(StateTransformer):
     """
-    The state as a flat tuple of individual spaces
+    The state as a flat tuple of individual spaces.
     """
     def __init__(self, num_players: int = 1):
         """
@@ -66,7 +68,7 @@ class TupleStateTransformer(StateTransformer):
         """
         return self.transform_state(initial_state)
 
-    def transform_state(self, state: GameState) -> GameState:
+    def transform_state(self, state: GameState) -> Tuple[Any, ...]:
         """
         Returns the state.
 
@@ -74,28 +76,28 @@ class TupleStateTransformer(StateTransformer):
             state: The state to transform.
         
         Returns:
-            The same input state.
+            A flat tuple representing the game state.
         """
         game_info = [state.info.lap_time]
 
         players = []
 
         for player in state.players:
-            player_state = [
-                [player.entity.position.x, player.entity.position.y],
-                [player.entity.velocity.x, player.entity.velocity.y],
-                [player.grapple_radius],
-                [player.grapple_angle],
-                [player.boost],
-                [player.in_air],
-                [player.sliding],
-                [player.sliding_on_ground],
-                [player.grappling],
-                [player.on_wall],
-                [player.on_ground],
-                [player.item],
-                [player.last_move_direction]
-            ]
+            player_state = (
+                [player.entity.position.x, player.entity.position.y]
+                + [player.entity.velocity.x, player.entity.velocity.y]
+                + [player.grapple_radius]
+                + [player.grapple_angle]
+                + [player.boost]
+                + [player.in_air]
+                + [player.sliding]
+                + [player.sliding_on_ground]
+                + [player.grappling]
+                + [player.on_wall]
+                + [player.on_ground]
+                + [player.item]
+                + [player.last_move_direction]
+            )
             players += player_state
 
         state = game_info + players
