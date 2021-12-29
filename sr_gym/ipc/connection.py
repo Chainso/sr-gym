@@ -63,7 +63,6 @@ class Connection:
             # Problem reading, TODO: error handling
             pass
 
-        print("Read:", message)
         return GameState.from_json(message)
 
     def send_packet(self, message: bytes) -> None:
