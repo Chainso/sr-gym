@@ -1,7 +1,7 @@
 from typing import Any, Tuple
 
 import numpy as np
-from gym.spaces import Box, MultiBinary
+from gymnasium.spaces import Box, MultiBinary
 from sr_gym.env.spaces.discrete_shaped import DiscreteShaped
 
 from sr_gym.ipc.packet import GameState

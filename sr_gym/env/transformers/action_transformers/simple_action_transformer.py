@@ -1,4 +1,4 @@
-from gym.spaces import Dict, MultiBinary
+from gymnasium.spaces import Dict, MultiBinary
 
 from sr_gym.ipc.packet import GameState, PlayerInput
 from sr_gym.env.transformers.action_transformers import ActionTransformer

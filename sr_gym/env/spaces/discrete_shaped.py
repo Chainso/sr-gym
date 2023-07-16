@@ -1,6 +1,6 @@
 from typing import Any
 
-from gym.spaces import Discrete
+from gymnasium.spaces import Discrete
 
 class DiscreteShaped(Discrete):
     """

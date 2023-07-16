@@ -66,4 +66,4 @@ class LapTerminalTransformer(TerminalTransformer):
 
         info["TimeLimit.truncated"] = timeout and not real_finish
 
-        return timeout or real_finish
+        return real_finish

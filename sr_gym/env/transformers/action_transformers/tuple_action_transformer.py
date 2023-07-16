@@ -1,5 +1,5 @@
 import numpy as np
-from gym.spaces import MultiBinary
+from gymnasium.spaces import MultiBinary
 
 from sr_gym.ipc.packet import GameState, PlayerInput
 from sr_gym.env.transformers.action_transformers import ActionTransformer

@@ -1,5 +1,5 @@
 import numpy as np
-from gym.spaces import Box, Dict, Discrete, MultiBinary
+from gymnasium.spaces import Box, Dict, Discrete, MultiBinary
 
 from sr_gym.ipc.packet import GameState
 from sr_gym.env.transformers.state_transformers import StateTransformer

@@ -1,6 +1,6 @@
 from typing import Any, Dict, Tuple
 
-from gym import Env
+from gymnasium import Env
 
 from sr_gym.ipc import Connection
 from sr_gym.env.transformers import (
@@ -63,7 +63,7 @@ class SRGym(Env):
 
         return transformed_initial_state
 
-    def step(self, action: Any) -> Tuple[Any, float, bool, Dict]:
+    def step(self, action: Any) -> Tuple[Any, float, bool, bool, Dict]:
         """
         Takes one step in the SpeedRunners game, executing the action.
 
@@ -93,7 +93,13 @@ class SRGym(Env):
 
         self.state = next_state
 
-        return transformed_next_state, reward, terminal, info
+        return (
+            transformed_next_state,
+            reward,
+            terminal,
+            info["TimeLimit.truncated"],
+            info
+        )
 
     def render(self) -> None:
         """

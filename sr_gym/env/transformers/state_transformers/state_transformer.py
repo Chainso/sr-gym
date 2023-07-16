@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Any
 
-from gym.spaces import Space
+from gymnasium.spaces import Space
 
 from sr_gym.ipc.packet import GameState
 

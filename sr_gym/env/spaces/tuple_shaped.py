@@ -2,8 +2,8 @@
 
 from typing import Iterable
 
-from gym import Space
-from gym.spaces import Tuple
+from gymnasium import Space
+from gymnasium.spaces import Tuple
 
 class TupleShaped(Tuple):
     """
