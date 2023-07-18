@@ -2,7 +2,6 @@ from typing import Any, Tuple
 
 import numpy as np
 from gymnasium.spaces import Box, MultiBinary
-from sr_gym.env.spaces.discrete_shaped import DiscreteShaped
 
 from sr_gym.ipc.packet import GameState
 from sr_gym.env.transformers.state_transformers import StateTransformer
@@ -102,7 +101,7 @@ class TupleStateTransformer(StateTransformer):
 
         state = game_info + players
 
-        return state
+        return np.array(state)
 
     def state_space(self) -> TupleShaped:
         """

@@ -1,4 +1,4 @@
-from typing import Any, Dict, Tuple
+from typing import Any, Optional, Tuple
 
 from gymnasium import Env
 
@@ -45,7 +45,12 @@ class SRGym(Env):
         # Store the current state
         self.state = None
 
-    def reset(self) -> Any:
+    def reset(
+        self,
+        *,
+        seed: Optional[int] = None,
+        options: Optional[dict[str, Any]] = None,
+    ) -> tuple[Any, dict[str, Any]]:
         """
         Resets the SpeedRunners game and current lap.
 
@@ -61,9 +66,9 @@ class SRGym(Env):
         self.reward_transformer.reset(initial_state)
         self.terminal_transformer.reset(initial_state)
 
-        return transformed_initial_state
+        return transformed_initial_state, {}
 
-    def step(self, action: Any) -> Tuple[Any, float, bool, bool, Dict]:
+    def step(self, action: Any) -> Tuple[Any, float, bool, bool, dict[str, Any]]:
         """
         Takes one step in the SpeedRunners game, executing the action.
 
